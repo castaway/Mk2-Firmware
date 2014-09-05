@@ -79,7 +79,7 @@ void ColourFunApp::task() {
         int hue, saturation, value;
         red = green = blue = hue = 0;
         saturation = 255;
-        value = 255;
+        value = 100; // 0-255
         Tilda::setLedColor({red, green, blue});   // LEDs off
         while(true) {  // Make sure this loop goes on forever
             Button button = mButtonSubscription->waitForPress(300); // Wait for up to a second for a button press
@@ -98,9 +98,15 @@ void ColourFunApp::task() {
               hue = hue + 10;
               if(hue > 360)
                 hue = 0;
-            } else if(direction = -1) {
+            } else if(direction == -1) {
               hue = hue - 10;
               if(hue < 0) hue = 360;
+            } else if(direction == 2) {
+              value = value + 5;
+              if(value > 100) value = 0;
+            } else if(direction == -2) {
+              value = value - 5;
+              if(value < 0) value = 100;
             }
             HSBToRGB(hue, saturation, value, &red, &green, &blue);
             Tilda::setLedColor({red, green, blue});
