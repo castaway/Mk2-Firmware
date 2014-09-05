@@ -43,7 +43,7 @@ App* ColourFunApp::New() {
 }
 
 ColourFunApp::ColourFunApp() {
-    mButtonSubscription = Tilda::createButtonSubscription(LEFT | RIGHT | UP | DOWN); // Define the buttons you're interested in here
+    mButtonSubscription = Tilda::createButtonSubscription(LEFT | RIGHT | UP | DOWN | A); // Define the buttons you're interested in here
 }
 
 ColourFunApp::~ColourFunApp() {
@@ -66,13 +66,17 @@ void ColourFunApp::task() {
 
         GLCD.SelectFont(System5x7);      // Font
         GLCD.CursorToXY(2, 2);           // Position cursor
-        GLCD.print("Hello");             // Write text
+        GLCD.print("Colour");             // Write text
         GLCD.CursorToXY(2, 12);
-        GLCD.print("World");
+        GLCD.print("Fun");
         GLCD.CursorToXY(2, 34);
         GLCD.print("Try");
         GLCD.CursorToXY(2,44);
         GLCD.print("UP/DOWN");
+        GLCD.CursorToXY(2,54);
+        GLCD.print("LEFT/RIGHT");
+        GLCD.CursorToXY(2,64);
+        GLCD.print("A for value");
 
         int direction = 1;
         unsigned int red, green, blue;
@@ -92,6 +96,12 @@ void ColourFunApp::task() {
               direction = -1;
             } else if (button == RIGHT) {
               direction = 1;
+            } else if (button == A) {
+              GLCD.CursorToXY(2,74);
+              GLCD.print("0x");
+              GLCD.PrintNumber(red);
+              GLCD.PrintNumber(green);
+              GLCD.PrintNumber(blue);
             }
 
             if(direction == 1) {
