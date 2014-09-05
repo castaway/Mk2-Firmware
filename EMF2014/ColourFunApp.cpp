@@ -75,7 +75,7 @@ void ColourFunApp::task() {
         GLCD.print("UP/DOWN");
 
         int direction = 1;
-        int red, green, blue;
+        unsigned int red, green, blue;
         int hue, saturation, value;
         red = green = blue = hue = 0;
         saturation = 255;
@@ -96,10 +96,11 @@ void ColourFunApp::task() {
 
             if(direction == 1) {
               hue = hue + 10;
-              hue = 0 if hue > 360;
+              if(hue > 360)
+                hue = 0;
             } else if(direction = -1) {
               hue = hue - 10;
-              hue = 360 if hue < 0;
+              if(hue < 0) hue = 360;
             }
             HSBToRGB(hue, saturation, value, &red, &green, &blue);
             Tilda::setLedColor({red, green, blue});
@@ -122,7 +123,8 @@ void HSBToRGB(
     {
         unsigned int scaledHue = (inHue * 6);
         unsigned int sector = scaledHue >> 8; // sector 0 to 5 around the color wheel
-        unsigned int offsetInSector = scaledHue - (sector << 8);	// position within the sector         unsigned int p = (inBrightness * ( 255 - inSaturation )) >> 8;
+        unsigned int offsetInSector = scaledHue - (sector << 8);	// position within the sector
+        unsigned int p = (inBrightness * ( 255 - inSaturation )) >> 8;
         unsigned int q = (inBrightness * ( 255 - ((inSaturation * offsetInSector) >> 8) )) >> 8;
         unsigned int t = (inBrightness * ( 255 - ((inSaturation * ( 255 - offsetInSector )) >> 8) )) >> 8;
 

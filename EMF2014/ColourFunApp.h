@@ -56,3 +56,7 @@ private:
 private:
     ButtonSubscription* mButtonSubscription;
 };
+
+void HSBToRGB(
+    unsigned int inHue, unsigned int inSaturation, unsigned int inBrightness,
+    unsigned int *oR, unsigned int *oG, unsigned int *oB );
