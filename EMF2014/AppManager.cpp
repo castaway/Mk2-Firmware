@@ -35,6 +35,7 @@
 #include "AppManager.h"
 #include "BadgeIdApp.h"
 #include "SnakeApp.h"
+#include "SuperMarioApp.h"
 #include "HelloWorldApp.h"
 #include "ColourFunApp.h"
 #include "ScheduleApp.h"
@@ -51,6 +52,7 @@ static const AppDefinition APPS[] = {
         AppDefinition("Tetris",        TetrisApp::New),
         // AppDefinition("HelloWorld",    HelloWorldApp::New), // Uncomment this
         AppDefinition("Color Fun",     ColourFunApp::New),
+        AppDefinition("SuperMario",    SuperMarioApp::New),
         AppDefinition("Sponsors",      SponsorsApp::New)
 };
 

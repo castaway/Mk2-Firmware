@@ -83,22 +83,26 @@ The functions affected are:
 #include <FreeRTOS_ARM.h>
 #include <glcd.h>
 
+LCDTask::LCDTask()
+    : _enabled(true) {
+
+}
+
 String LCDTask::getName() const
 {
   return "LCD";
 }
 
 void LCDTask::task() {
-  GLCD.Init();
   while(true) {
     if(_enabled){
-    GLCD.WaitForUpdate();
-    // Write framebuffer to display
-    GLCD.Display();
+      GLCD.WaitForUpdate();
+      // Write framebuffer to display
+      GLCD.Display();
     }
     // Sleep for 40ms, to limit updates to 25fps
     vTaskDelay(40);
-   }
+  }
 }
 
 void LCDTask::disable()

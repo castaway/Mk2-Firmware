@@ -33,4 +33,32 @@
 #include <Arduino.h>
 #include <FreeRTOS_ARM.h>
 #include "EMF2014Config.h"
+#include "Task.h"
 
+class Tone {
+public:
+	Tone();
+	Tone(uint16_t note, uint16_t duration, uint16_t pauseAfterwards);
+	void play();
+private:
+	uint16_t _note;
+	uint16_t _duration;
+	uint16_t _pauseAfterwards;
+};
+
+class SoundTask: public Task {
+public:
+    SoundTask();
+
+    String getName() const;
+    void playMelody(const uint16_t melody[], const uint16_t tempo[], const uint16_t length);
+    void playTone(const uint16_t note, const uint16_t duration, const uint16_t pauseAfterwards);
+    void playTone(const Tone& tone);
+    void clear();
+private:
+    SoundTask(const SoundTask&) {}
+
+    QueueHandle_t _tones;
+protected:
+    void task();
+};
